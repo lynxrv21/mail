@@ -1,0 +1,44 @@
+Delivered-To: lynxrv@mail.ru
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+	h=Content-Type:Message-ID:Reply-To:Date:MIME-Version:To:From; bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=dsl9ZoP/anc3viuYWg/vqdpNZARu3q3SVYko4VfrT9XoQkMhX/g2ZikdyHxhkNU+7KtMiBBF1ns5FVBnjSSJNqQRciJuAdDwBSiLihSkbLFQyiqzyUMlEq3zlPHcaajVaBiaERhwbLTjCuCvxsDXgI86VDdgfPQI8homQLKFMFo=;
+Return-path: <lynxrv@mail.ru>
+Received: from [95.134.210.30] (ident=mail)
+	by f170.i.mail.ru with local (envelope-from <lynxrv@mail.ru>)
+	id 1Yucg8-0004ga-LH
+	for lynxrv@mail.ru; Tue, 19 May 2015 11:15:08 +0300
+Received: from [95.134.210.30] by e.mail.ru with HTTP;
+	Tue, 19 May 2015 11:15:08 +0300
+From: =?UTF-8?B?THlueA==?= <lynxrv@mail.ru>
+To: =?UTF-8?B?c2VyZ2Vpc3M=?= <sergeiss@i.ua>
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+X-Originating-IP: 47.114.213.61 via proxy [95.134.210.30]
+Date: Tue, 19 May 2015 11:15:08 +0300
+X-Mru-UID: 21778229
+X-Mru-IsAutoreg: 
+X-Mru-AutoregInfo: , 
+X-Mru-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0
+X-Mru-Data: 3811::1:0:272:0
+Reply-To: =?UTF-8?B?THlueA==?= <lynxrv@mail.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1432023308.485672776@f170.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--T8ud2nK0w4ST45Yh6lFq7OD4WonqvOal1432023308"
+
+
+----ALT--T8ud2nK0w4ST45Yh6lFq7OD4WonqvOal1432023308
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+Cmh0dHA6Ly9zdWJzY3JpYmUucnUvZ3JvdXAvdnNlLWRseWEtbmFzLWx5dWJpbXlpaC84NTA3NjQ3
+LwoKCtCh0YLQtdC/0LDQvQ==
+----ALT--T8ud2nK0w4ST45Yh6lFq7OD4WonqvOal1432023308
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPjxicj48YSBocmVmPSJodHRwOi8vc3Vic2NyaWJlLnJ1L2dyb3VwL3ZzZS1k
+bHlhLW5hcy1seXViaW15aWgvODUwNzY0Ny8iPmh0dHA6Ly9zdWJzY3JpYmUucnUvZ3JvdXAvdnNl
+LWRseWEtbmFzLWx5dWJpbXlpaC84NTA3NjQ3LzwvYT48YnI+PGJyPjxicj7QodGC0LXQv9Cw0L08
+L0JPRFk+PC9IVE1MPgo=
+----ALT--T8ud2nK0w4ST45Yh6lFq7OD4WonqvOal1432023308--

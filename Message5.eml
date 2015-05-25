@@ -1,0 +1,72 @@
+Return-path: <bounces+1743317-8ec7-lynxrv=mail.ru@email.shipstation.com>
+Authentication-Results: mxs.mail.ru; spf=pass (mx110.mail.ru: domain of email.shipstation.com designates 192.254.124.201 as permitted sender) smtp.mailfrom=bounces+1743317-8ec7-lynxrv=mail.ru@email.shipstation.com smtp.helo=o1.email.shipstation.com;
+	 dkim=pass header.i=shipstation.com
+Received-SPF: pass (mx110.mail.ru: domain of email.shipstation.com designates 192.254.124.201 as permitted sender) client-ip=192.254.124.201; envelope-from=bounces+1743317-8ec7-lynxrv=mail.ru@email.shipstation.com; helo=o1.email.shipstation.com;
+Received: from o1.email.shipstation.com ([192.254.124.201]:16829)
+	by mx110.mail.ru with esmtp (envelope-from <bounces+1743317-8ec7-lynxrv=mail.ru@email.shipstation.com>)
+	id 1YvaFE-0001ID-DE
+	for lynxrv@mail.ru; Fri, 22 May 2015 02:51:21 +0300
+X-Mru-BL: 0:0
+X-Mru-TLS: TLSv1.2:AES128-GCM-SHA256
+X-Mru-BadRcptsCount: 0
+X-Mru-PTR: o1.email.shipstation.com
+X-Mru-NR: 1
+X-Mru-OF: Linux (Ethernet or modem)
+X-Mru-RC: US
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=shipstation.com; 
+	h=mime-version:from:to:reply-to:subject:content-type:content-transfer-encoding; 
+	s=smtpapi; bh=CQJbmooOa5ZYzdPEj28pug5x/mU=; b=xZxY4fSeZSM9V3wd6t
+	VCo90qZ75fNaklVICKGwnoPtXy6/T07c6yfQ9MvEDTknS71FFysJOxEd2qdukYRZ
+	QiqOcstiC+DXJ8Yc3oW8ZhtNyhEcTlXQ+uZFzCWElpUo453YYdRFn5+GaVCCkx5C
+	sv3u87WAkbH6RnAX5ihQ5kGzw=
+Received: by filter0313p1mdw1.sendgrid.net with SMTP id filter0313p1mdw1.29034.555E6F736
+        2015-05-21 23:51:15.977411824 +0000 UTC
+Received: from smtp.sendgrid.net (ec2-54-86-23-132.compute-1.amazonaws.com [54.86.23.132])
+	by ismtpd-031 (SG) with ESMTP id 14d78e35cee.3a36.5be10f
+	for <lynxrv@mail.ru>; Thu, 21 May 2015 23:51:15 +0000 (UTC)
+Received: from SS-C-APP02 ([127.0.0.1]) by smtp.sendgrid.net with Microsoft SMTPSVC(8.0.9200.16384);
+	 Thu, 21 May 2015 16:51:27 -0700
+MIME-Version: 1.0
+From: "GreenCitizen Inc" <tracking@shipstation.com>
+To: lynxrv@mail.ru
+Reply-To: ebay@greencitizen.com
+Date: 21 May 2015 16:51:27 -0700
+Subject: Your order has been shipped!
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-ID: <SS-C-APP029c6R60f1h000b9647@smtp.sendgrid.net>
+X-OriginalArrivalTime: 21 May 2015 23:51:27.0155 (UTC) FILETIME=[0D4A5030:01D09421]
+X-SG-EID: gtovkzUaseMaszCGr6U2lAGvd8BfyL0yllVEVfBXUjIEGo41zU7rxT3ly8DaRbQRDaZFEEF2ah8veP
+ 8Sa2smD04+Q2Ei8B+txWNbx/4+L3tGTfHNl+Pn5tNK1bB3yNM3Z7jTgn3lHyn9oXpUlrRPwyJ8RXeA
+ uUtjvoScEK5EeAc=
+X-SG-ID: Z1uUe+JQ1S7AOL2NBmu5GbzZkF04UIpAmmIwBUdHH576InMjzLTAEHE6cQKPRi4TsBChLvJc54eJ1x
+ d3A/+CdMD5UMP8mfkv700axfcCGOE=
+X-DMARC-Policy: no
+X-Mras: Ok
+X-Spam: undefined
+X-Spam-Status: NO
+
+<div align=3D"right">	<br></div><font face=3D"arial"><font face=3D"arial">	=
+<br>	Dear Stepan Sinkov UA24478,</font></font><br><font face=3D"arial"><fon=
+t face=3D"arial">	<br>	Thank you for your order from <b>eBay - reuse! </b>W=
+e wanted to let you know that your order (#229051) was shipped via USPS, US=
+PS First Class Mail on 5/21/2015.&nbsp; You can track your package at any t=
+ime using the link below.<br>	<br>	<b>Shipped To:</b><br>	Stepan Sinkov UA2=
+4478<br>78 McCullough Dr<br>New Castle, DE 19726 US<br>	<b></b>	<br>	<b>Tra=
+ck Your Shipment:</b>&nbsp;<a href=3D"https://tools.usps.com/go/TrackConfir=
+mAction.action?tLabels=3D9400110200793575833410">9400110200793575833410</a>=
+<br>	<br>	This shipment includes the following items:<br>	<br>	<table borde=
+r=3D'0' cellpadding=3D'4' cellspacing=3D'0'><tr><td width=3D'150' style=3D'=
+border-bottom:solid 1px gray'><b>Item #</b></td><td width=3D'550' style=3D'=
+border-bottom:solid 1px gray'><b>Description</b></td><td align=3D'center' s=
+tyle=3D'border-bottom:solid 1px gray' width=3D'150'><b>Qty</b></td></tr><tr=
+><td>EB1502231619#WB#WB#MC</td><td>Hynix 4 GB HMT351S6CFR8C-PB N0 AA DDR3 R=
+AM PC3-12800 DDR3-1600 Laptop RAM </td><td align=3D'center'>1</td></tr><tr>=
+<td>EB1410032761#TL</td><td>Intel Core 2 Duo E8400 3.0GHz 6MB L2 Cache 1333=
+MHz LGA775 SLB9J</td><td align=3D'center'>1</td></tr></table><br></font></f=
+ont><font face=3D"arial"><font face=3D"arial">	<br>	<b>Thank you for your b=
+usiness and we look forward to serving you in the future!<br>		<br>	</b></f=
+ont></font><b>GreenCitizen Inc</b><br><b>Phone: </b>6504938700x500<br><b>Em=
+ail: </b>ebay@greencitizen.com<br><b>Website:</b> <a href=3D"www.greencitiz=
+en.com">www.greencitizen.com</a>=20
+
