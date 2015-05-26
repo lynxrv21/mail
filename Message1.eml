@@ -44,12 +44,21 @@ Cc: Tetiana Pud tanushkanu@gmail.com, Lynx Cc@mail.ru
 
 
 Lynx body@mail.ru
-he https://duckduckgo.com/?q=python+find+by+re+pattern&t=canonical;
-hello http://stackoverflow.com/questions/5426789/method-for-parsing-text-cc-field-of-email-header
+hello 
 Content-Type: multipart/alternative; charset=UTF-8
 https://msdn.microsoft.com/en-us/library/ms526560%28v=exchg.10%29.aspx
 11111111111qwfpg
 Tetiana Pud tanushkanu@gmail.com,
 Lynx <lyssssnxrv@mail.ru>,
-www.demo.com
-demo.com
+1 www.demo.com
+2 demo.com
+3 http://foo.com.uk/
+4 msdn.microsoft.com/en-us/library/ms563775(v=office.14).aspx
+5 http://regexr.com/foo.html?q=bar
+6 www.demo.com
+7 www.msdn.microsoft.com/en-us/library/ms563775(v=office.14).aspx
+he https://duckduckgo.com/?q=python+find+by+re+pattern&t=canonical;
+http://stackoverflow.com/questions/5426789/method-for-parsing-text-cc-field-of-email-header
+http://127.0.0.1:4773/robot10382.flv?action=read
+3дньюс.рф
+ftp://www.ftpx.com
