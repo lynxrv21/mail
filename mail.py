@@ -18,7 +18,7 @@ if __name__ == '__main__':
                 Body = msg.get_payload()
                 headers = Parser().parse(open(path, "r"))
 
-                if not headers["Subject"] and headers["From"] and headers["To"] and Body:
+                if not headers["Subject"] and not headers["From"] and not headers["To"] and not Body:
                     print "! Error: check your file, noting to do here"
                 else:
                     if not Body:
@@ -59,9 +59,16 @@ if __name__ == '__main__':
                         if re.match(url_pattern, item):
                             Body_url.append(item)
 
-                        address = parseaddr(item)
-                        if re.match(mail_pattern, address[1]):
-                            Body_email.append(address[1])
+                    for item in Body_l:
+                        # address = parseaddr(item)
+                        if re.match(mail_pattern, parseaddr(item)[1]):
+                            Body_email.append(parseaddr(item)[1])
+
+                    if not Body_email and not Body_url:
+                        print "Warning: no URL or e-mail address in body"
+
+                    # if not From_email:
+                    #     print "Warning: no valid e-mail address in From"
 
                     print len(Body_url)
                     print Body_url
