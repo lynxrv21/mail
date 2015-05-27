@@ -38,19 +38,11 @@ if __name__ == '__main__':
                 print "Your file seems to be multipart message... I'd better skip it"
             elif msg.get_content_type() == 'text/plain':
                 Body_raw = msg.get_payload()
-
                 headers = Parser().parse(open(path, "r"))
 
                 if not headers["Subject"] and not headers["From"] and not headers["To"] and not Body_raw:
                     print "! Error: check your file, noting to do here"
                 else:
-                    if not Body_raw:
-                        print "! Warning: no 'Body' field in your file"
-                    elif not headers["From"]:
-                        print "! Warning: no 'From' field in your file"
-                    elif not headers["To"]:
-                        print "! Warning: no 'To' field in your file"
-
                     mail_pattern = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")
                     url_pattern = re.compile(r"(((ht|f)tp(s?))\:\/\/)?((www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.([a-zA-Z0-9\-\.]{2,}))+(\:[0-9]+)*(\/($|[a-zA-Z0-9\.+\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*")
 
@@ -65,23 +57,27 @@ if __name__ == '__main__':
                     Body_url = []
                     Body_email = []
 
-                    From_email = headers_fields(headers["From"].split(), mail_pattern)
-
-                    if not From_email:
-                        print "Warning: no valid e-mail address in From"
+                    if not headers["From"]:
+                        print "! Warning: no 'From' field in your file"
                     else:
-                        print "== %s emails in From: ==" % len(From_email)
-                        for mail in From_email:
-                            print mail
+                        From_email = headers_fields(headers["From"].split(), mail_pattern)
+                        if not From_email:
+                            print "! Warning: no valid e-mail address in From"
+                        else:
+                            print "== %s emails in From: ==" % len(From_email)
+                            for mail in From_email:
+                                print mail
 
-                    To_email = headers_fields(headers["To"].split(), mail_pattern)
-
-                    if not To_email:
-                        print "Warning: no valid e-mail address in To"
+                    if not headers["To"]:
+                        print "! Warning: no 'To' field in your file"
                     else:
-                        print "== %s emails in To: ==" % len(To_email)
-                        for mail in To_email:
-                            print mail
+                        To_email = headers_fields(headers["To"].split(), mail_pattern)
+                        if not To_email:
+                            print "! Warning: no valid e-mail address in To"
+                        else:
+                            print "== %s emails in To: ==" % len(To_email)
+                            for mail in To_email:
+                                print mail
 
                     if headers["Cc"]:
                         Cc_email = headers_fields(headers["Cc"].split(), mail_pattern)
@@ -106,25 +102,27 @@ if __name__ == '__main__':
                         for url in Subject_url:
                             print url
 
-                    headers_mails = len(From_email) + len(To_email) + len(Subject_email) + len(Cc_email) + len(Bcc_email)
-                    Body_email, Body_url = mails_urls(Body, mail_pattern, url_pattern)
-
-                    if not Body_email:
-                        print "Warning: no e-mail address in body"
+                    if not Body_raw:
+                        print "! Warning: no 'Body' field in your file"
                     else:
-                        print "== %s emails in body: ==" % len(Body_email)
-                        for mail in Body_email:
-                            print mail
+                        Body_email, Body_url = mails_urls(Body, mail_pattern, url_pattern)
+                        if not Body_email:
+                            print "! Warning: no e-mail address in body"
+                        else:
+                            print "== %s emails in body: ==" % len(Body_email)
+                            for mail in Body_email:
+                                print mail
 
-                    if not Body_url:
-                        print "Warning: no URL address in body"
-                    else:
-                        print "== %s urls in body: ==" % len(Body_url)
-                        for url in Body_url:
-                            print url
+                        if not Body_url:
+                            print "! Warning: no URL address in body"
+                        else:
+                            print "== %s urls in body: ==" % len(Body_url)
+                            for url in Body_url:
+                                print url
+                    headers_mail = len(From_email) + len(To_email) + len(Subject_email) + len(Cc_email) + len(Bcc_email)
                     urls = len(Body_url)+len(Subject_url)
                     print "== %s Total urls ==" % urls
-                    mails = len(Body_email) + headers_mails
+                    mails = len(Body_email) + headers_mail
                     print "== %s Total email addresses ==" % mails
 
         except IOError:
