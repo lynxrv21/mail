@@ -91,16 +91,19 @@ if __name__ == '__main__':
                         for mail in Bcc_email:
                             print mail
 
-                    Subject_email, Subject_url = mails_urls(headers["Subject"].split(), mail_pattern, url_pattern)
-                    if Subject_email:
-                        print "== %s emails in subject: ==" % len(Subject_email)
-                        for mail in Subject_email:
-                            print mail
+                    if not headers["Subject"]:
+                        print "! Warning: no 'Subject' field in your file"
+                    else:
+                        Subject_email, Subject_url = mails_urls(headers["Subject"].split(), mail_pattern, url_pattern)
+                        if Subject_email:
+                            print "== %s emails in subject: ==" % len(Subject_email)
+                            for mail in Subject_email:
+                                print mail
 
-                    if Subject_url:
-                        print "== %s urls in subject: ==" % len(Subject_url)
-                        for url in Subject_url:
-                            print url
+                        if Subject_url:
+                            print "== %s urls in subject: ==" % len(Subject_url)
+                            for url in Subject_url:
+                                print url
 
                     if not Body_raw:
                         print "! Warning: no 'Body' field in your file"
