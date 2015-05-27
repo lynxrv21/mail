@@ -7,27 +7,27 @@ from email.parser import Parser
 from email.utils import parseaddr
 from email import message_from_file
 
-
-def headers_fields(source_list, re_pattern):
+def simple_iteration(source_list, re_pattern):
     app_list = []
-    for taken in source_list:
-        taken = taken.strip('<,>')
-        if re.match(re_pattern, taken):
-            app_list.append(taken)
+    for item in source_list:
+        if re.match(re_pattern, item):
+            app_list.append(item)
     return app_list
+def handleerror(errmsg, emailmsg,cs):
+    print()
+    print(errmsg)
+    print("This error occurred while decoding with ",cs," charset.")
+    print("These charsets were found in the one email.",getcharsets(emailmsg))
+    print("This is the subject:",emailmsg['subject'])
+    print("This is the sender:",emailmsg['From'])
 
 
-def mails_urls(source_list, m_pattern, u_pattern):
-    app_mail_list = []
-    app_url_list = []
-    for taken in source_list:
-        taken = taken.strip('<,>')
-        if re.match(m_pattern, parseaddr(taken)[1]):
-            app_mail_list.append(parseaddr(taken)[1])
-        elif re.match(u_pattern, taken):
-            app_url_list.append(taken)
-    return (app_mail_list, app_url_list)
-
+def getcharsets(msg):
+    charsets = set({})
+    for c in msg.get_charsets():
+        if c is not None:
+            charsets.update([c])
+    return charsets
 
 if __name__ == '__main__':
     try:
@@ -35,97 +35,103 @@ if __name__ == '__main__':
         try:
             msg = message_from_file(open(path, "r"))
             if msg.is_multipart():
-                print "Your file seems to be multipart message... I'd better skip it"
+                # print "Your file seems to be multipart message... I'd better skip it"
+                for part in msg.walk():
+
+                    # If part is multipart, walk through the subparts.
+                    if part.is_multipart():
+
+                        for subpart in part.walk():
+                            if subpart.get_content_type() == 'text/plain':
+                                # Get the subpart payload (i.e the message body)
+                                Body_raw = subpart.get_payload(decode=True)
+                                #charset = subpart.get_charset()
+
+                            # Part isn't multipart so get the email body
+                            elif part.get_content_type() == 'text/plain':
+                                Body_raw = part.get_payload(decode=True)
+                                #charset = part.get_charset()
+            # If this isn't a multi-part message then get the payload (i.e the message body)
             elif msg.get_content_type() == 'text/plain':
-                Body_raw = msg.get_payload()
+                Body_raw = msg.get_payload(decode=True)
+            for charset in getcharsets(msg):
+                try:
+                    Body_raw = Body_raw.decode(charset)
+                except UnicodeDecodeError:
+                    handleerror("UnicodeDecodeError: encountered.",msg,charset)
+                except AttributeError:
+                     handleerror("AttributeError: encountered" ,msg,charset)
+            print Body_raw
+            # else:
+                # Body_raw = msg.get_payload(decode=True)
+                # headers = Parser().parse(open(path, "r"))
 
-                headers = Parser().parse(open(path, "r"))
-
-                if not headers["Subject"] and not headers["From"] and not headers["To"] and not Body_raw:
-                    print "! Error: check your file, noting to do here"
-                else:
-                    if not Body_raw:
-                        print "! Warning: no 'Body' field in your file"
-                    elif not headers["From"]:
-                        print "! Warning: no 'From' field in your file"
-                    elif not headers["To"]:
-                        print "! Warning: no 'To' field in your file"
-
-                    mail_pattern = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")
-                    url_pattern = re.compile(r"(((ht|f)tp(s?))\:\/\/)?((www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.([a-zA-Z0-9\-\.]{2,}))+(\:[0-9]+)*(\/($|[a-zA-Z0-9\.+\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*")
-
-                    From_email = []
-                    To_email = []
-                    Cc_email = []
-                    Bcc_email = []
-                    Subject_email = []
-                    Subject_url = []
-
-                    Body = Body_raw.split()
-                    Body_url = []
-                    Body_email = []
-
-                    From_email = headers_fields(headers["From"].split(), mail_pattern)
-
-                    if not From_email:
-                        print "Warning: no valid e-mail address in From"
-                    else:
-                        print "== %s emails in From: ==" % len(From_email)
-                        for mail in From_email:
-                            print mail
-
-                    To_email = headers_fields(headers["To"].split(), mail_pattern)
-
-                    if not To_email:
-                        print "Warning: no valid e-mail address in To"
-                    else:
-                        print "== %s emails in To: ==" % len(To_email)
-                        for mail in To_email:
-                            print mail
-
-                    if headers["Cc"]:
-                        Cc_email = headers_fields(headers["Cc"].split(), mail_pattern)
-                        print "== %s emails in Cc: ==" % len(Cc_email)
-                        for mail in Cc_email:
-                            print mail
-
-                    if headers["Bcc"]:
-                        Bcc_email = headers_fields(headers["Bcc"].split(), mail_pattern)
-                        print "== %s emails in Bcc: ==" % len(Bcc_email)
-                        for mail in Bcc_email:
-                            print mail
-
-                    Subject_email, Subject_url = mails_urls(headers["Subject"].split(), mail_pattern, url_pattern)
-                    if Subject_email:
-                        print "== %s emails in subject: ==" % len(Subject_email)
-                        for mail in Subject_email:
-                            print mail
-
-                    if Subject_url:
-                        print "== %s urls in subject: ==" % len(Subject_url)
-                        for url in Subject_url:
-                            print url
-
-                    headers_mails = len(From_email) + len(To_email) + len(Subject_email) + len(Cc_email) + len(Bcc_email)
-                    Body_email, Body_url = mails_urls(Body, mail_pattern, url_pattern)
-
-                    if not Body_email:
-                        print "Warning: no e-mail address in body"
-                    else:
-                        print "== %s emails in body: ==" % len(Body_email)
-                        for mail in Body_email:
-                            print mail
-
-                    if not Body_url:
-                        print "Warning: no URL address in body"
-                    else:
-                        print "== %s urls in body: ==" % len(Body_url)
-                        for url in Body_url:
-                            print url
-                    urls = len(Body_url)+len(Subject_url)
-                    print "== %s Total urls ==" % urls
-                    mails = len(Body_email) + headers_mails
-                    print "== %s Total email addresses ==" % mails
+                # if not headers["Subject"] and not headers["From"] and not headers["To"] and not Body:
+                #     print "! Error: check your file, noting to do here"
+                # else:
+                #     if not Body_raw:
+                #         print "! Warning: no 'Body' field in your file"
+                #     elif not headers["From"]:
+                #         print "! Warning: no 'From' field in your file"
+                #     elif not headers["To"]:
+                #         print "! Warning: no 'To' field in your file"
+                #
+                #     mail_pattern = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")
+                #     url_pattern = re.compile(r"(((ht|f)tp(s?))\:\/\/)?((www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.([a-zA-Z0-9\-\.]{2,}))+(\:[0-9]+)*(\/($|[a-zA-Z0-9\.+\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*")
+                #
+                #     From_email = []
+                #     To_email = []
+                #     Cc_email = []
+                #     Bcc_email = []
+                #     Subject_email = []
+                #
+                #     for item in headers["From"].split():
+                #         item = item.strip('<,>')
+                #         if re.findall(mail_pattern, item):
+                #             print item
+                #
+                #     for item in headers["To"].split():
+                #         if re.findall(mail_pattern, item.strip('?,?')):
+                #             print item
+                #
+                #     for item in headers["Subject"].split():
+                #         if re.match(mail_pattern, item):
+                #             print item
+                #
+                #     # for item in headers["Cc"].split():
+                #     #     if re.match(mail_pattern, item):
+                #     #         print item
+                #     #
+                #     # for item in headers["Bcc"].split():
+                #     #     if re.match(mail_pattern, item):
+                #     #         print item
+                #
+                #     Body = Body_raw.split()
+                #     Body_url = []
+                #     Body_email = []
+                #     print "here goes body"
+                #
+                #     for item in Body:
+                #         item = item.strip('<,>')
+                #         if re.match(mail_pattern, parseaddr(item)[1]):
+                #             Body_email.append(parseaddr(item)[1])
+                #         elif re.match(url_pattern, item):
+                #             Body_url.append(item)
+                #
+                #     if not Body_email:
+                #         print "Warning: no e-mail address in body"
+                #     else:
+                #         print "%r emails in body:" % len(Body_email)
+                #         for mail in Body_email:
+                #             print mail
+                #
+                #     if not Body_url:
+                #         print "Warning: no URL address in body"
+                #     else:
+                #         print "%r urls in body:" % len(Body_url)
+                #         for url in Body_url:
+                #             print url
+                #     print Body_raw
 
         except IOError:
             print "! Error: file or path not found"
