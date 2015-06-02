@@ -65,7 +65,8 @@ if __name__ == '__main__':
                                 # Get the subpart payload (i.e the message body)
                                 Body_raw = subpart.get_payload(decode=True)
                                 #charset = subpart.get_charset()
-
+                            if subpart.get_content_type() == 'text/html':
+                                
                     # Part isn't multipart so get the email body
                     elif part.get_content_type() == 'text/plain':
                         Body_raw = part.get_payload(decode=True)
